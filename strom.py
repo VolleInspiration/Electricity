@@ -83,8 +83,11 @@ def showPlot(fileName = 'strom.json'):
                 ypoints.append(int(valueStr))
             
             ypointres = [0]
-            
-            ypointresNorm = [0]
+            #ypointresNorm = [0]
+
+            kwhProY = 2000
+            kwhProD = kwhProY / 365
+            kwhRes = [0]
 
             for count, dataVal in enumerate(dataList):
                 if count + 1 < dataListLength:
@@ -94,27 +97,38 @@ def showPlot(fileName = 'strom.json'):
                     delta /= np.timedelta64(1, "D")
                     #print(delta)
                     res = ypoints[count + 1] - ypoints[count]
-                    ypointresNorm.append(res * delta / 31)
+                    kwhRes.append(delta * kwhProD)
+                    #ypointresNorm.append(res * delta / 31)
                     ypointres.append(res)
 
-            fig = plt.figure(figsize=(10, 8))
+            
 
-            ax1 = fig.add_subplot(2, 1, 1)
-            ax1.plot_date(xpoints, ypointres, fmt="b--", marker = "X")
+            fig = plt.figure('''figsize=(10, 10)''')
+            fig.set_figwidth(10)
+            fig.set_figheight(4)
+            fig = plt.gcf()
+            fig.canvas.manager.set_window_title('EAT - Electricity Analysis Tool')
+
+            ax1 = fig.add_subplot(1, 1, 1)
+            
+            ax1.plot_date(xpoints, ypointres, fmt="g--", marker = "o")
+            ax1.plot_date(xpoints, kwhRes, fmt="r--", marker="o")
             ax1.set_xticks(xpoints)
             ax1.grid()
-            ax1.set_title("Strom")
-            plt.tick_params("x", labelbottom = False)
+            ax1.set_title("Electricity")
+            ax1.legend(['current electricity consumption', str(kwhProY) + ' kwh/Year'])
+            plt.tick_params("x", labelbottom = True)
             
+            '''
             ax2 = fig.add_subplot(2, 1, 2, sharex = ax1)
             #print(ypointresNorm)
             ax2.grid()
             ax2.plot_date(xpoints, std_difference(ypointresNorm), fmt="b--", marker = "o")
             ax2.axhline( 0 )
             ax2.set_xticks(xpoints)
-
+            '''
             plt.subplots_adjust(hspace=0)
-            plt.setp(plt.gca().xaxis.get_majorticklabels(), 'rotation', 90)
+            plt.setp(plt.gca().xaxis.get_majorticklabels(), 'rotation', 75)
             fig.tight_layout()
             plt.show()
         exit()
@@ -137,7 +151,7 @@ def main():
         os.system('cls')
         sys.exit()
     else:
-        print("no command found -", "'" + userInput + "'")
+        print(" >>> can't find given command -", "'" + userInput + "'")
     main()
 
 if __name__ == "__main__":

@@ -101,8 +101,6 @@ def showPlot(fileName = 'strom.json'):
                     #ypointresNorm.append(res * delta / 31)
                     ypointres.append(res)
 
-            
-
             fig = plt.figure('''figsize=(10, 10)''')
             fig.set_figwidth(10)
             fig.set_figheight(4)
@@ -112,7 +110,13 @@ def showPlot(fileName = 'strom.json'):
             ax1 = fig.add_subplot(1, 1, 1)
             
             ax1.plot_date(xpoints, ypointres, fmt="g--", marker = "o")
+            for x,y in zip(xpoints,ypointres):
+                ax1.annotate("{:.2f}".format(y) , (x,y), textcoords='data')
+
             ax1.plot_date(xpoints, kwhRes, fmt="r--", marker="o")
+            for x,y in zip(xpoints,kwhRes):
+                ax1.annotate("{:.2f}".format(y) , (x,y), textcoords='data')
+
             ax1.set_xticks(xpoints)
             ax1.grid()
             ax1.set_title("Electricity")

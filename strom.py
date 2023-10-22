@@ -117,10 +117,12 @@ def showPlot(fileName = 'strom.json'):
             for x,y in zip(xpoints,kwhRes):
                 ax1.annotate("{:.2f}".format(y) , (x,y), textcoords='data')
 
+            ax1.set_xlabel("meter reading date")
+            ax1.set_ylabel("consumption / kWh")
             ax1.set_xticks(xpoints)
             ax1.grid()
             ax1.set_title("Electricity")
-            ax1.legend(['current electricity consumption', str(kwhProY) + ' kwh/Year'])
+            ax1.legend(['current electricity consumption', str(kwhProY) + ' kWh/year'])
             plt.tick_params("x", labelbottom = True)
             
             '''

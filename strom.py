@@ -10,6 +10,8 @@ from datetime import datetime
 from s_statistik import *
 from s_tools import *
 
+fileName = 'strom.json'
+
 def addValuesNow(nDate, nValue, fileName = 'strom.json'):
     jsonList = []
     #check if file is exist
@@ -122,7 +124,7 @@ def showPlot(fileName = 'strom.json'):
             ax1.set_xticks(xpoints)
             ax1.grid()
             ax1.set_title("Electricity")
-            ax1.legend(['current electricity consumption', str(kwhProY) + ' kWh/year'])
+            ax1.legend(['current electricity consumption', str(kwhProY) + ' kWh / year'])
             plt.tick_params("x", labelbottom = True)
             
             '''
@@ -140,7 +142,7 @@ def showPlot(fileName = 'strom.json'):
         exit()
 
 def main():
-    fileName = 'strom.json'
+    
     print("\n[Electricity Analysis Tool - EAT]")
     print('\nWhat do you want to do?')
     print("Choose:\n")
